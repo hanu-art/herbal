@@ -43,7 +43,8 @@ export const createUser = (userData) => {
       email: userData.email,
       phone: userData.phone,
       password: userData.password_hash,
-      role: userData.role || 'user'
+      role: userData.role || 'user',
+      is_active: true
     }
   };
 };
