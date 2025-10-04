@@ -86,9 +86,9 @@ export const requireAdmin = authorizeRoles(['admin']);
 export const requireManager = authorizeRoles(['manager', 'admin']);
 
 /**
- * Employee, Manager and Admin middleware
+ * User, Manager and Admin middleware (all authenticated users)
  */
-export const requireEmployee = authorizeRoles(['employee', 'manager', 'admin']);
+export const requireUser = authorizeRoles(['user', 'manager', 'admin']);
 
 /**
  * Optional authentication middleware (doesn't fail if no token)

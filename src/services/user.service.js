@@ -72,15 +72,12 @@ class UserService {
    */
   async create(userData) {
     try {
-      const query = createUser({
-        ...userData,
-        id: generateUUID()
-      });
+      const query = createUser(userData);
 
       const { data, error } = await supabase
         .from(query.table)
         .insert(query.data)
-        .select('id, name, email, phone, role, department, position, created_at')
+        .select('id, name, email, phone, role, department, position, is_active, created_at')
         .single();
 
       if (error) {

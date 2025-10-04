@@ -15,7 +15,7 @@ import {
  */
 export const register = async (req, res) => {
   try {
-    const { name, email, password, phone, role = 'employee' } = req.body;
+    const { name, email, password, phone, role = 'user' } = req.body;
 
     // Check if user already exists
     const existingUser = await userService.findByEmail(email);
@@ -40,11 +40,10 @@ export const register = async (req, res) => {
  
 
     // Remove sensitive data
-    delete newUser.password_hash;
+    delete newUser.password;
 
     return sendSuccessResponse(res, 201, 'User registered successfully', {
-      user: newUser.id
-    
+      user: newUser
     });
 
   } catch (error) {
@@ -255,7 +254,7 @@ export const changePassword = async (req, res) => {
     }
 
     // Verify current password
-    const isCurrentPasswordValid = await comparePassword(currentPassword, user.password_hash);
+    const isCurrentPasswordValid = await comparePassword(currentPassword, user.password);
     if (!isCurrentPasswordValid) {
       return sendUnauthorizedResponse(res, 'Current password is incorrect');
     }

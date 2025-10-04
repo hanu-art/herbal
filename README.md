@@ -1,6 +1,6 @@
-# HR Management System Backend
+# Herbal Product  Backend
 
-A production-grade Node.js + Express.js backend with Supabase integration for HR management.
+A production-grade Node.js + Express.js backend with Supabase integration for Hrbal Product.
 
 ## 🚀 Features
 
@@ -116,7 +116,7 @@ POST /api/auth/register
   "email": "john@example.com",
   "password": "SecurePass123!",
   "phone": "+1234567890",
-  "role": "employee"
+  "role": "user"
 }
 ```
 
@@ -166,17 +166,17 @@ POST /api/auth/login
 ### Users Table
 ```sql
 CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  name VARCHAR(100) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  phone VARCHAR(20),
-  password_hash TEXT NOT NULL,
-  role VARCHAR(20) DEFAULT 'employee',
-  department VARCHAR(100),
-  position VARCHAR(100),
+  id UUID PRIMARY KEY DEFAULT extensions.uuid_generate_v4(),
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  role TEXT DEFAULT 'user',
+  created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+  department TEXT,
+  position TEXT,
   is_active BOOLEAN DEFAULT true,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
+  phone VARCHAR(20)
 );
 ```
 

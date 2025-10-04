@@ -8,7 +8,8 @@ import {
   deactivateUser
 } from '../controllers/user.controller.js';
 import { authenticateToken, requireAdmin, requireManager } from '../middleware/auth.middleware.js';
-import { sanitizeInput } from '../middleware/validation/validation.middleware.js';
+import { sanitizeInput, validateRequest } from '../middleware/validation/validation.middleware.js';
+import { validateUserUpdate, validateUserId } from '../validators/user.validator.js';
 
 const router = express.Router();
 
@@ -33,14 +34,14 @@ router.use(userLimiter);
 
 // Public user routes (require authentication)
 router.get('/search', sanitizeInput, searchUsers);
-router.get('/:id', sanitizeInput, getUserById);
+router.get('/:id', sanitizeInput, validateUserId, validateRequest, getUserById);
 
 // Manager and Admin routes
 router.get('/', sanitizeInput, requireManager, getAllUsers);
 
 // Admin only routes
-router.put('/:id', sanitizeInput, requireAdmin, updateUser);
-router.delete('/:id', sanitizeInput, requireAdmin, deactivateUser);
+router.put('/:id', sanitizeInput, validateUserUpdate, validateRequest, requireAdmin, updateUser);
+router.delete('/:id', sanitizeInput, validateUserId, validateRequest, requireAdmin, deactivateUser);
 
 export default router;
 

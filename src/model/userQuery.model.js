@@ -25,7 +25,7 @@ export const getUserByEmail = (email) => {
 export const getUserById = (id) => {
   return {
     table: 'users',
-    select: 'id, name, email, phone, role, department, position, created_at, updated_at',
+    select: 'id, name, email, phone, role, department, position, is_active, created_at, updated_at',
     filter: { id: id }
   };
 };
@@ -39,17 +39,11 @@ export const createUser = (userData) => {
   return {
     table: 'users',
     data: {
-      id: userData.id,
       name: userData.name,
       email: userData.email,
       phone: userData.phone,
       password: userData.password_hash,
-      role: userData.role || 'employee',
-      department: userData.department || null,
-      position: userData.position || null,
-      is_active: true,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      role: userData.role || 'user'
     }
   };
 };
@@ -64,10 +58,7 @@ export const updateUser = (id, updateData) => {
   return {
     table: 'users',
     filter: { id: id },
-    data: {
-      ...updateData,
-      updated_at: new Date().toISOString()
-    }
+    data: updateData
   };
 };
 
@@ -82,8 +73,7 @@ export const updateUserPassword = (id, passwordHash) => {
     table: 'users',
     filter: { id: id },
     data: {
-      password_hash: passwordHash,
-      updated_at: new Date().toISOString()
+      password: passwordHash
     }
   };
 };
@@ -98,8 +88,7 @@ export const deactivateUser = (id) => {
     table: 'users',
     filter: { id: id },
     data: {
-      is_active: false,
-      updated_at: new Date().toISOString()
+      is_active: false
     }
   };
 };

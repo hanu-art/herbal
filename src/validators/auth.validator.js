@@ -33,8 +33,8 @@ export const validateRegistration = [
 
   body('role')
     .optional()
-    .isIn(['employee', 'manager', 'admin'])
-    .withMessage('Role must be employee, manager, or admin')
+    .isIn(['user', 'manager', 'admin'])
+    .withMessage('Role must be user, manager, or admin')
 ];
 
 /**

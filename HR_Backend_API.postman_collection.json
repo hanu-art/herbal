@@ -1,13 +1,13 @@
 {
   "info": {
-    "name": "HR Backend API",
-    "description": "Complete API collection for HR Management System Backend",
+    "name": "Herbal Product",
+    "description": "Complete API collection for Herbal Product Backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:3000/api",
+      "value": "https://herbal-6tab.onrender.com/api",
       "type": "string"
     },
     {
@@ -34,9 +34,7 @@
                 "exec": [
                   "if (pm.response.code === 201) {",
                   "    const response = pm.response.json();",
-                  "    pm.collectionVariables.set('accessToken', response.data.tokens.accessToken);",
-                  "    pm.collectionVariables.set('refreshToken', response.data.tokens.refreshToken);",
-                  "    console.log('Tokens saved to collection variables');",
+                  "    console.log('User registered successfully');",
                   "}"
                 ]
               }
@@ -52,7 +50,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"phone\": \"+1234567890\",\n  \"role\": \"employee\"\n}"
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"phone\": \"+1234567890\",\n  \"role\": \"user\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/auth/register",
@@ -369,10 +367,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/health",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
+              "raw": "https://herbal-6tab.onrender.com/health",
+              "protocol": "https",
+              "host": ["herbal-6tab", "onrender", "com"],
               "path": ["health"]
             },
             "description": "Check if the server is running"
