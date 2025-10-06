@@ -134,6 +134,7 @@ export const logout = async (req, res) => {
 export const getProfile = async (req, res) => {
   try {
     const user = await userService.findById(req.user.id);
+   
     if (!user) return sendNotFoundResponse(res, 'User not found');
 
     const userResponse = {

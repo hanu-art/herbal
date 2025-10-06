@@ -27,12 +27,12 @@ export const authenticateToken = async (req, res, next) => {
       return sendUnauthorizedResponse(res, 'User not found');
     }
 
-    // Convert is_active to boolean safely (handles 't', true, 1)
-    const isActive = user.is_active === true || user.is_active === 't' || user.is_active === 1;
-    if (!isActive) {
-      return sendUnauthorizedResponse(res, 'Account is deactivated');
-    }
-
+      // Convert is_active to boolean safely (handles 't', true, 1)
+      const isActive = user.is_active === true || user.is_active === 't' || user.is_active === 1;
+      if (!isActive) {
+        return sendUnauthorizedResponse(res, 'Account is deactivated');
+      }
+  
     // Add user to request object
     req.user = {
       id: user.id,
