@@ -2,8 +2,13 @@ import express from "express";
 import { corsOptions } from "./config/corsOptions.config.js";
 import cors from 'cors';
 import { securityMiddleware } from "./middleware/sequrity.middleware.js";
+
+// Routers
 import authRouter from "./router/auth.router.js";
 import userRouter from "./routes/user.routes.js";
+import productRouter from "./router/product.router.js";
+import categoryRouter from "./router/category.router.js";
+import orderRouter from "./router/order.router.js";
 
 const app = express();
 
@@ -35,6 +40,9 @@ app.get('/health', (req, res) => {
 // API routes
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
+app.use("/api/products", productRouter);
+app.use("/api/categories", categoryRouter);
+app.use("/api/orders", orderRouter);
 
 // 404 handler - catch all routes
 app.use((req, res) => {
