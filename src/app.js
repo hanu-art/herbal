@@ -15,6 +15,9 @@ const app = express();
 // Security middleware (Helmet & XSS protection)
 securityMiddleware(app);
 
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
 // CORS configuration
 app.use(cors(corsOptions));
 
