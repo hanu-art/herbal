@@ -14,12 +14,11 @@ const app = express();
 
 // Security middleware (Helmet & XSS protection)
 securityMiddleware(app);
+// Enable CORS for all routes
+app.use(cors(corsOptions));
 
 // Handle preflight requests
-app.options('*', cors(corsOptions));
-
-// CORS configuration
-app.use(cors(corsOptions));
+app.options(/^\/.*$/, cors(corsOptions));
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
