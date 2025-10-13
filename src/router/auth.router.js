@@ -23,7 +23,7 @@ const router = express.Router();
 // Rate limiting for auth routes
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per windowMs
+  max: 50, // limit each IP to 5 requests per windowMs
   message: {
     success: false,
     status: 429,
@@ -34,8 +34,8 @@ const authLimiter = rateLimit({
 });
 
 const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20, // limit each IP to 20 requests per windowMs
+  windowMs: 150 * 60 * 1000, // 15 minutes
+  max: 2000, // limit each IP to 20 requests per windowMs
   message: {
     success: false,
     status: 429,
@@ -47,7 +47,7 @@ const generalLimiter = rateLimit({
 
 // Public routes
 router.post('/register', 
-  generalLimiter,
+
   sanitizeInput,
   validateRegistration,
   validateRequest,
@@ -55,7 +55,7 @@ router.post('/register',
 );
 
 router.post('/login', 
-  authLimiter,
+
   sanitizeInput,
   validateLogin,
   validateRequest,
@@ -63,7 +63,7 @@ router.post('/login',
 );
 
 router.post('/refresh-token',
-  generalLimiter,
+
   sanitizeInput,
   refreshToken
 );
@@ -83,7 +83,7 @@ router.put('/profile',
 );
 
 router.put('/change-password',
-  authLimiter,
+
   sanitizeInput,
   validateChangePassword,
   validateRequest,
