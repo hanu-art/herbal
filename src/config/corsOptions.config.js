@@ -1,29 +1,31 @@
 import { ORIGIN } from "./env.config.js";
 
 const allowedOrigins = [
-  ORIGIN,
-  'http://localhost:5173',
-  'http://localhost:3000',
+  ORIGIN, // optional, from .env
+  'http://localhost:5173',   // ✅ React local (Vite)
+  'http://localhost:3000',   // CRA local
   'http://localhost:3001',
-  'https://herbal-6tab.onrender.com',
+  'https://herbal-6tab.onrender.com', // ✅ Render backend
   'http://herbal-6tab.onrender.com'
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
+    // ✅ Allow requests without origin (like Postman / curl)
     if (!origin) return callback(null, true);
-    
-    // Check if the origin is allowed
-    if (allowedOrigins.some(allowedOrigin => 
-      origin === allowedOrigin || 
+
+    // ✅ Allow if origin matches or is from Render
+    if (
+      allowedOrigins.includes(origin) ||
       origin.endsWith('.onrender.com')
-    )) {
+    ) {
       return callback(null, true);
     }
-    
+
+    console.log('❌ Blocked by CORS:', origin);
     return callback(new Error('Not allowed by CORS'));
   },
+
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   credentials: true,
   optionsSuccessStatus: 200,
@@ -46,6 +48,4 @@ const corsOptions = {
   preflightContinue: false
 };
 
-export {
-  corsOptions
-};
+export { corsOptions };
