@@ -17,8 +17,7 @@ securityMiddleware(app);
 // Enable CORS for all routes
 app.use(cors(corsOptions));
 
-// Handle preflight requests
-app.options('*', cors(corsOptions)); // handle all preflights
+app.options(/^\/.*$/, cors(corsOptions));
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
