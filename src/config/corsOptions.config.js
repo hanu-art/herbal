@@ -7,7 +7,7 @@ const allowedOrigins = [
   'http://localhost:3001',
   'https://herbal-6tab.onrender.com', // ✅ Render backend
   'http://herbal-6tab.onrender.com' ,
-  'https://herbal-products-frontend.vercel.app/'
+  'https://herbal-products-frontend.vercel.app'
 ];
 
 const corsOptions = {
